@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AsDePickle – Club de Pickleball Valladolid</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --lime:#B8F000;
+  --lime-dark:#8FBD00;
+  --ink:#0D0D0D;
+  --paper:#F7F7F2;
+  --off:#EDEEE6;
+  --muted:#666660;
+  --border:#DDDDD5;
+  --wa:#25D366;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:.85rem;left:50%;transform:translateX(-50%);z-index:100;
+  background:rgba(13,13,13,.88);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.1);border-radius:3rem;
+  padding:.5rem .6rem .5rem 1.6rem;
+  display:flex;align-items:center;gap:1.5rem;width:min(760px,92vw)}
+.nav-logo{font-size:1rem;font-weight:900;letter-spacing:-.03em;text-decoration:none;color:#fff;white-space:nowrap}
+.nav-logo span{color:var(--lime)}
+.nav-links{display:flex;gap:1.25rem;margin-left:auto;align-items:center}
+.nav-links a{font-size:.78rem;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--lime);color:var(--ink);border-radius:2rem;padding:.5rem 1.2rem;
+  font-size:.8rem;font-weight:800;text-decoration:none;white-space:nowrap;
+  transition:transform .15s,background .2s;display:flex;align-items:center;gap:.4rem}
+.nav-cta:hover{transform:scale(1.04);background:#ceff00}
+
+/* HERO */
+.hero{min-height:100dvh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.95) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.2) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:1000px;padding-bottom:1rem}
+.hero-eyebrow{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:.4rem;
+  border:1px solid rgba(255,255,255,.2);border-radius:2rem;
+  padding:.3rem .85rem;font-size:.7rem;font-weight:600;color:rgba(255,255,255,.6);
+  text-transform:uppercase;letter-spacing:.07em}
+.badge-live{background:rgba(184,240,0,.15);border-color:rgba(184,240,0,.35);color:var(--lime)}
+.badge-live .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:blink 1.8s infinite;display:inline-block}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+h1{font-size:clamp(3.2rem,10vw,7.5rem);font-weight:900;line-height:.9;letter-spacing:-.04em;color:#fff;margin-bottom:.75rem}
+h1 .accent{color:var(--lime)}
+h1 em{font-family:'DM Serif Display',serif;font-style:italic;font-weight:400}
+.hero-sub{font-size:clamp(.9rem,2.2vw,1.1rem);color:rgba(255,255,255,.55);max-width:500px;line-height:1.65;margin-bottom:2.5rem}
+.hero-cta-group{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center}
+.btn-wa{background:var(--wa);color:#fff;padding:.9rem 2rem;border-radius:3rem;
+  font-weight:800;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;
+  transition:transform .15s,background .2s;box-shadow:0 4px 24px rgba(37,211,102,.35)}
+.btn-wa:hover{transform:scale(1.04);background:#1ebe5d}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.25);
+  padding:.9rem 1.75rem;border-radius:3rem;font-weight:600;font-size:.9rem;
+  text-decoration:none;display:inline-block;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.65);background:rgba(255,255,255,.07)}
+.hero-stats{position:absolute;top:50%;right:2rem;transform:translateY(-50%);z-index:2;
+  display:flex;flex-direction:column;gap:1.5rem}
+.stat{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:1.5rem;padding:1rem 1.25rem;backdrop-filter:blur(8px)}
+.stat-n{font-size:1.8rem;font-weight:900;color:var(--lime);line-height:1}
+.stat-l{font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-top:.3rem}
+.scroll-hint{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;align-items:center;gap:.5rem;font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:rgba(255,255,255,.15);position:relative;overflow:hidden;border-radius:1px}
+.scroll-line::after{content:'';position:absolute;top:0;left:0;width:100%;height:40%;background:var(--lime);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%{top:-40%}100%{top:130%}}
+
+/* SECCIONES */
+section{padding:5rem 2rem}
+.container{max-width:980px;margin:0 auto}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:block}
+.sec-title{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:1.5rem}
+.sec-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--lime-dark);font-weight:400}
+
+/* ABOUT */
+.about{background:var(--ink);border-radius:3rem;margin:1rem;padding:4rem 2rem}
+.about .sec-tag{color:rgba(255,255,255,.35)}
+.about .sec-title{color:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.about-img{border-radius:2rem;overflow:hidden;aspect-ratio:5/4;position:relative}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-tag{position:absolute;bottom:1rem;left:1rem;
+  background:var(--lime);color:var(--ink);border-radius:2rem;padding:.4rem 1rem;font-size:.75rem;font-weight:800}
+.about p{color:rgba(255,255,255,.55);line-height:1.75;font-size:.95rem;margin-bottom:.9rem}
+.pill-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.pill{background:rgba(184,240,0,.1);border:1px solid rgba(184,240,0,.25);color:var(--lime);
+  border-radius:2rem;padding:.35rem .9rem;font-size:.75rem;font-weight:600}
+
+/* SERVICIOS */
+.services{padding:5rem 2rem;background:var(--off)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:3rem}
+.svc{background:var(--paper);border-radius:2rem;padding:2rem 1.5rem;
+  border:1.5px solid var(--border);cursor:default;
+  transition:transform .2s,border-color .2s,box-shadow .2s}
+.svc:hover{transform:translateY(-5px);border-color:var(--lime-dark);box-shadow:0 6px 32px rgba(0,0,0,.07)}
+.svc-ico{font-size:2rem;margin-bottom:1rem;display:block}
+.svc h3{font-size:1rem;font-weight:800;margin-bottom:.4rem}
+.svc p{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* HORARIOS */
+.schedule{background:var(--ink);border-radius:3rem;margin:0 1rem;padding:4rem 2rem;color:#fff}
+.schedule .sec-tag{color:rgba(255,255,255,.3)}
+.schedule .sec-title{color:#fff}
+.sched-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-top:3rem}
+.sched-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:1.75rem;padding:1.75rem 1.5rem;transition:background .2s}
+.sched-card:hover{background:rgba(255,255,255,.07)}
+.sched-day{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin-bottom:.6rem}
+.sched-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+.sched-desc{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.55}
+.sched-card.on{border-color:rgba(184,240,0,.3);background:rgba(184,240,0,.06)}
+
+/* CTA */
+.cta-section{padding:5rem 2rem;background:var(--paper)}
+.cta-box{background:var(--lime);border-radius:3rem;padding:4rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.cta-box h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--ink);line-height:1;max-width:520px}
+.cta-box h2 em{font-family:'DM Serif Display',serif;font-style:italic;font-weight:400}
+.cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:1rem;flex-shrink:0}
+.btn-dark{background:var(--ink);color:#fff;padding:1rem 2.25rem;border-radius:3rem;
+  font-weight:800;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;
+  transition:transform .15s}
+.btn-dark:hover{transform:scale(1.04)}
+.cta-note{font-size:.75rem;color:rgba(13,13,13,.5);text-align:right}
+
+/* FOOTER */
+footer{background:var(--ink);border-radius:3rem 3rem 0 0;padding:4rem 2rem 2.5rem;color:#fff}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand-name{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.6rem}
+.footer-brand-name span{color:var(--lime)}
+.footer-desc{font-size:.82rem;color:rgba(255,255,255,.35);line-height:1.7;max-width:220px}
+footer h4{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+footer ul li a{font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+footer ul li a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.sys-status{display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:rgba(255,255,255,.3)}
+.sys-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:blink 2.5s infinite;display:inline-block}
+.copy{font-size:.72rem;color:rgba(255,255,255,.2)}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;
+  background:var(--wa);color:#fff;border-radius:3rem;padding:.7rem 1.2rem;
+  display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:700;text-decoration:none;
+  box-shadow:0 6px 28px rgba(37,211,102,.4);transition:transform .2s;animation:floatin 3s ease-in-out infinite}
+.wa-float:hover{transform:scale(1.06)}
+@keyframes floatin{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+@media(max-width:680px){
+  .about-grid,.footer-top{grid-template-columns:1fr}
+  .hero-stats{display:none}
+  .nav-links a:not(.nav-cta){display:none}
+  .cta-box{flex-direction:column}
+  .cta-right{align-items:flex-start}
+  .about{margin:.5rem}
+  .schedule{margin:0 .5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#"><span>As</span>DePickle</a>
+  <div class="nav-links">
+    <a href="#club">El club</a>
+    <a href="#servicios">Actividades</a>
+    <a href="#horarios">Horarios</a>
+    <a class="nav-cta" href="https://chat.whatsapp.com/BUaLirGJPcL0x3CFVu6DfA" target="_blank">💬 WhatsApp</a>
+  </div>
+</nav>
+
+<!-- HERO CON VIDEO -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="asdepickle-hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">2022</div><div class="stat-l">Fundado</div></div>
+    <div class="stat"><div class="stat-n">🏆</div><div class="stat-l">Torneos</div></div>
+    <div class="stat"><div class="stat-n">VLL</div><div class="stat-l">Valladolid</div></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="badge badge-live"><span class="dot"></span>Club activo</div>
+      <div class="badge">IDM Faustina · Valladolid</div>
+    </div>
+    <h1>Pickle<span class="accent">ball</span><br><em>de tod@s</em><br>para tod@s</h1>
+    <p class="hero-sub">Un club nacido de la amistad para aprender, mejorar y competir. Todos los niveles bienvenidos, desde cero hasta los torneos europeos.</p>
+    <div class="hero-cta-group">
+      <a class="btn-wa" href="https://chat.whatsapp.com/BUaLirGJPcL0x3CFVu6DfA" target="_blank">💬 Escríbenos por WhatsApp</a>
+      <a class="btn-ghost" href="#club">Conoce el club</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="club">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=900&q=80" alt="Jugando pickleball">
+        <div class="about-tag">⚡ Deporte en auge</div>
+      </div>
+      <div>
+        <span class="sec-tag">Quiénes somos</span>
+        <h2 class="sec-title">Nacimos para <em>jugar</em> juntos</h2>
+        <p>AsDePickle nació en 2022 de un grupo de amig@s apasionados por el pickleball en Valladolid. Desde el primer día, crecimos como una comunidad real: abierta, activa y sin pretensiones.</p>
+        <p>Llevamos años participando en torneos nacionales y europeos. Queremos que formes parte de esta aventura, sea cual sea tu nivel de partida.</p>
+        <div class="pill-row">
+          <span class="pill">Todos los niveles</span>
+          <span class="pill">Monitores titulados</span>
+          <span class="pill">Torneos nacionales</span>
+          <span class="pill">Comunidad activa</span>
+          <span class="pill">IDM Faustina</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="services" id="servicios">
+  <div class="container">
+    <span class="sec-tag">Lo que ofrecemos</span>
+    <h2 class="sec-title">Todo lo que <em>necesitas</em></h2>
+    <div class="svc-grid">
+      <div class="svc"><span class="svc-ico">🎓</span><h3>Clases para principiantes</h3><p>Aprende las bases desde cero con monitores titulados. No hace falta experiencia previa.</p></div>
+      <div class="svc"><span class="svc-ico">💪</span><h3>Entrenamiento semanal</h3><p>Sesiones regulares para mejorar tu juego. Pistas en la IDM Faustina de Valladolid.</p></div>
+      <div class="svc"><span class="svc-ico">🏆</span><h3>Torneos y competición</h3><p>Competimos a nivel nacional y europeo. Si quieres medirte, aquí tienes tu equipo.</p></div>
+      <div class="svc"><span class="svc-ico">🤝</span><h3>Comunidad real</h3><p>Un grupo humano de primera. Grupo de WhatsApp activo, quedadas y mucho pickle.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HORARIOS -->
+<section class="schedule" id="horarios">
+  <div class="container">
+    <span class="sec-tag">Organización</span>
+    <h2 class="sec-title">Cuándo y <em>cómo</em> jugamos</h2>
+    <div class="sched-grid">
+      <div class="sched-card on">
+        <div class="sched-day">Entre semana</div>
+        <div class="sched-title">Entrenamiento libre</div>
+        <div class="sched-desc">IDM Faustina · Horario a coordinar por el grupo de WhatsApp</div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-day">Sábados</div>
+        <div class="sched-title">Clases dirigidas</div>
+        <div class="sched-desc">Con monitor titulado · Todos los niveles bienvenidos</div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-day">Mensual</div>
+        <div class="sched-title">Torneos internos</div>
+        <div class="sched-desc">Competición entre socios · Ambiente festivo y amistoso</div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-day">Temporada</div>
+        <div class="sched-title">Torneos nacionales</div>
+        <div class="sched-desc">Representando al club en España y Europa</div>
+      </div>
+    </div>
+    <p style="margin-top:2rem;font-size:.8rem;color:rgba(255,255,255,.3);text-align:center">Horarios exactos y convocatorias siempre vía el grupo de WhatsApp del club.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <h2>¿Listo para<br><em>empezar a jugar?</em></h2>
+      <div class="cta-right">
+        <a class="btn-dark" href="https://chat.whatsapp.com/BUaLirGJPcL0x3CFVu6DfA" target="_blank">💬 Habla con nosotros</a>
+        <span class="cta-note">También en asdepickleball@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name"><span>As</span>DePickle</div>
+        <p class="footer-desc">Club de Pickleball de Valladolid. Fundado en 2022 con ganas de jugar y de crecer juntos.</p>
+      </div>
+      <div>
+        <h4>Club</h4>
+        <ul>
+          <li><a href="#club">El club</a></li>
+          <li><a href="#servicios">Actividades</a></li>
+          <li><a href="#horarios">Horarios</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://chat.whatsapp.com/BUaLirGJPcL0x3CFVu6DfA" target="_blank">WhatsApp del club</a></li>
+          <li><a href="mailto:asdepickleball@gmail.com">asdepickleball@gmail.com</a></li>
+          <li><a href="#">IDM Faustina, Valladolid</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="sys-status"><span class="sys-dot"></span>Club activo — Temporada 2025</div>
+      <div class="copy">© 2025 AsDePickle · Todos los derechos reservados</div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://chat.whatsapp.com/BUaLirGJPcL0x3CFVu6DfA" target="_blank">💬 ¡Únete al club!</a>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  })
+});
+var nav=document.querySelector('nav');
+window.addEventListener('scroll',function(){
+  nav.style.background=window.scrollY>80?'rgba(13,13,13,.97)':'rgba(13,13,13,.88)'
+});
+</script>
+</body>
+</html>
