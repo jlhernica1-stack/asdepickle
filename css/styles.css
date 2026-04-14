@@ -177,8 +177,9 @@ footer ul li a:hover{color:#fff}
 /* CARRUSEL EQUIPOS */
 .teams{padding:5rem 2rem;background:var(--paper)}
 .carousel-wrap{position:relative;max-width:700px;margin:3rem auto 0;border-radius:2.5rem;overflow:hidden;aspect-ratio:3/4;box-shadow:0 16px 64px rgba(0,0,0,.14)}
-.carousel-track{display:flex;height:100%;transition:none}
-.carousel-slide{min-width:100%;height:100%;position:relative;flex-shrink:0}
+.carousel-track{position:relative;height:100%}
+.carousel-slide{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;z-index:1}
+.carousel-slide.active{opacity:1;z-index:2}
 .carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
 .carousel-dots{display:flex;justify-content:center;gap:.55rem;margin-top:1.25rem}
 .carousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--border);cursor:pointer;padding:0;transition:background .25s,transform .25s}
